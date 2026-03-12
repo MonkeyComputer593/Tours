@@ -1,0 +1,183 @@
+[
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string",
+        "title": "Título (Español)"
+      },
+      {
+        "name": "titleEn",
+        "type": "string",
+        "title": "Title (English)"
+      },
+      {
+        "rows": 4,
+        "name": "description",
+        "type": "text",
+        "title": "Descripción (Español)"
+      },
+      {
+        "rows": 4,
+        "name": "descriptionEn",
+        "type": "text",
+        "title": "Description (English)"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Amazonía",
+              "value": "Amazonía"
+            },
+            {
+              "title": "Andes",
+              "value": "Andes"
+            },
+            {
+              "title": "Costa",
+              "value": "Costa"
+            },
+            {
+              "title": "Galápagos",
+              "value": "Galápagos"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "Amazonía",
+                  "Andes",
+                  "Costa",
+                  "Galápagos"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "region",
+        "type": "string",
+        "title": "Región"
+      },
+      {
+        "description": "Ejemplo: 5 días / 4 noches",
+        "name": "duration",
+        "type": "string",
+        "title": "Duración"
+      },
+      {
+        "name": "priceNacional",
+        "type": "string",
+        "title": "Precio Nacional (USD)"
+      },
+      {
+        "name": "priceInternacional",
+        "type": "string",
+        "title": "Precio Internacional (USD)"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "Imagen Principal"
+      },
+      {
+        "description": "Cada día del tour como ítem separado",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "itinerary",
+        "type": "array",
+        "title": "Itinerario (Español)"
+      },
+      {
+        "description": "Each day of the tour as separate item",
+        "of": [
+          {
+            "type": "string"
+          }
+        ],
+        "name": "itineraryEn",
+        "type": "array",
+        "title": "Itinerary (English)"
+      },
+      {
+        "description": "Número para ordenar los tours en la página",
+        "name": "order",
+        "type": "number",
+        "title": "Orden de aparición"
+      }
+    ],
+    "name": "tour",
+    "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "question",
+        "type": "string",
+        "title": "Pregunta"
+      },
+      {
+        "name": "questionEn",
+        "type": "string",
+        "title": "Question (English)"
+      },
+      {
+        "rows": 3,
+        "name": "answer",
+        "type": "text",
+        "title": "Respuesta"
+      },
+      {
+        "rows": 3,
+        "name": "answerEn",
+        "type": "text",
+        "title": "Answer (English)"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "Orden de aparición"
+      }
+    ],
+    "name": "faq",
+    "type": "document",
+    "title": "FAQ"
+  }
+]
