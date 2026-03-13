@@ -1,19 +1,19 @@
-import { createClient } from '@sanity/client'
-import imageUrlBuilder from '@sanity/image-url'
+import { createClient } from "@sanity/client";
+import imageUrlBuilder from "@sanity/image-url";
 
-const projectId = import.meta.env.VITE_SANITY_PROJECT_ID || 'pc54az1o'
-const dataset = import.meta.env.VITE_SANITY_DATASET || 'production'
-const apiVersion = import.meta.env.VITE_SANITY_API_VERSION || '2024-01-01'
+const projectId = "pc54az1o";
+const dataset = "production";
+const apiVersion = "2024-01-01";
 
 export const sanityClient = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true, // Enable CDN for production performance
-})
+  useCdn: false, // Disable CDN for fresh data
+});
 
-const builder = imageUrlBuilder(sanityClient)
-export const urlFor = (source: any) => builder.image(source)
+const builder = imageUrlBuilder(sanityClient);
+export const urlFor = (source: any) => builder.image(source);
 
 export async function getAllTours() {
   return sanityClient.fetch(
@@ -31,12 +31,10 @@ export async function getAllTours() {
       itinerary,
       itineraryEn,
       order
-    }`
-  )
+    }`,
+  );
 }
 
 export async function getAllFaqs() {
-  return sanityClient.fetch(
-    `*[_type == "faq"] | order(order asc)`
-  )
+  return sanityClient.fetch(`*[_type == "faq"] | order(order asc)`);
 }
