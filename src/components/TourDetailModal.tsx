@@ -104,11 +104,11 @@ export default function TourDetailModal({ tour, onClose }: TourDetailModalProps)
                   </div>
 
                   {/* Itinerary */}
-                  {tour.itinerary && (
+                  {translatedTour.itinerary && translatedTour.itinerary.length > 0 && (
                     <div>
                       <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#F27D26] mb-6 md:mb-10">{t('common.itinerary')}</h4>
                       <div className="space-y-4 md:space-y-8">
-                        {tour.itinerary.map((item, idx) => (
+                        {translatedTour.itinerary.map((item, idx) => (
                           <div key={idx} className="flex gap-4 md:gap-8 group">
                             <span className="text-gray-200 font-black text-xl md:text-2xl tracking-tighter group-hover:text-[#F27D26] transition-colors">0{idx + 1}</span>
                             <p className="text-[10px] md:text-[11px] text-gray-500 font-bold uppercase tracking-widest leading-relaxed pt-1">{item}</p>

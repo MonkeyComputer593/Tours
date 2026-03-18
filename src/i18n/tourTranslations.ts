@@ -88,19 +88,23 @@ const tourTranslationsEn: Record<string, { title: string; description: string; i
   },
 };
 
+// NOTE: Tour translations are now managed directly in Sanity Studio
+// using titleEn, descriptionEn, and itineraryEn fields
+// This file is kept for compatibility but uses Sanity fields instead
+
 export function getTourById(id: string, language: string = 'es'): Tour | undefined {
   return undefined;
 }
 
 export function translateTour(tour: Tour, language: string): Tour {
-  const translations = language === 'en' ? tourTranslationsEn : tourTranslations;
-  const trans = translations[tour.id];
-  
-  if (!trans) return tour;
-  
-  return {
-    ...tour,
-    title: trans.title || tour.title,
-    description: trans.description || tour.description,
-  };
+  // Use Sanity fields directly - titleEn, descriptionEn, itineraryEn
+  if (language === 'en') {
+    return {
+      ...tour,
+      title: tour.titleEn || tour.title,
+      description: tour.descriptionEn || tour.description,
+      itinerary: tour.itineraryEn || tour.itinerary,
+    };
+  }
+  return tour;
 }
