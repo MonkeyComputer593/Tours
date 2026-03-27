@@ -4,6 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 const WHATSAPP = "+593961906731";
 const INSTAGRAM = "etsaatoursec";
+const FACEBOOK = "etsaatours";
+const YOUTUBE = "@Etsaatours";
 const TIKTOK = "etsaatoursec";
 const EMAIL = "etsaatoursec@gmail.com";
 const ADDRESS = "Macas, Ecuador";
@@ -71,7 +73,7 @@ export default function Footer() {
                 <Instagram className="w-5 h-5" />
               </a>
               <a 
-                href={`https://facebook.com/${INSTAGRAM}`} 
+                href={`https://facebook.com/${FACEBOOK}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-[#F27D26]"
@@ -81,7 +83,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a 
-                href={`https://youtube.com/@${INSTAGRAM}`} 
+                href={`https://www.youtube.com/${YOUTUBE}`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-500 hover:text-[#F27D26]"

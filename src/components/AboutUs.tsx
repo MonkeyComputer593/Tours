@@ -9,11 +9,11 @@ export default function AboutUs() {
   return (
     <div className="bg-white scroll-mt-20" id="about">
       {/* Hero Section - Logo como banner */}
-      <section className="relative h-[50vh] lg:h-[70vh] w-full overflow-hidden bg-black">
+      <section className="relative w-full bg-black pt-8 lg:pt-12">
         <img
           src="/assets/logo-etsaa.png"
           alt="ETSAATOURS"
-          className="w-full h-auto"
+          className="w-full h-auto max-h-[70vh] object-contain"
         />
       </section>
 

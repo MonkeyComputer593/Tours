@@ -7,7 +7,7 @@ export default function Hero() {
   const { t } = useTranslation();
   
   return (
-    <section className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-black">
+    <section className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black -mt-16">
       {/* Background Video */}
       <div className="absolute inset-0 z-0">
         <video
@@ -15,7 +15,7 @@ export default function Hero() {
           muted
           loop
           playsInline
-          className="w-full h-full object-cover opacity-70"
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
         >
           <source src="/assets/video-home.mp4" type="video/mp4" />
         </video>

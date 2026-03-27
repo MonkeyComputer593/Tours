@@ -39,7 +39,7 @@ export default function TourGrid() {
     : tours.filter(tour => tour.region === activeFilter);
 
   return (
-    <section id="tours" className="py-16 lg:py-32 bg-white scroll-mt-20">
+    <section id="tours" className="pt-4 pb-0 bg-white scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 lg:px-12 mb-10 lg:mb-16">
         <motion.span
           initial={{ opacity: 0, y: 10 }}
