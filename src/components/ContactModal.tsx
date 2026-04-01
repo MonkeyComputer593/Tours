@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { X, Phone, CheckCircle, MessageCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
@@ -6,22 +6,40 @@ import { useTranslation } from 'react-i18next';
 interface ContactModalProps {
   isOpen: boolean;
   onClose: () => void;
+  preselectedTour?: string;
 }
 
 const WHATSAPP = "+593961906731";
 
-export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+export default function ContactModal({ isOpen, onClose, preselectedTour }: ContactModalProps) {
   const { t, i18n } = useTranslation();
   const isEnglish = i18n.language === 'en';
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    email: '', 
+    message: '' 
+  });
   const [isSent, setIsSent] = useState(false);
+
+  // Update message when tour or language changes
+  useEffect(() => {
+    if (preselectedTour) {
+      const messageText = isEnglish 
+        ? `I'm interested in: ${preselectedTour}` 
+        : `Estoy interesado en: ${preselectedTour}`;
+      setFormData(prev => ({ ...prev, message: messageText }));
+    }
+  }, [preselectedTour, isEnglish]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Build message with tour info if preselected
+    const tourInfo = preselectedTour ? `\n*Tour:* ${preselectedTour}` : '';
+    
     const message = isEnglish
-      ? `*New Inquiry - ETSAATOURS*\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Message:* ${formData.message}`
-      : `*Nueva Consulta - ETSAATOURS*\n\n*Nombre:* ${formData.name}\n*Email:* ${formData.email}\n*Mensaje:* ${formData.message}`;
+      ? `*New Inquiry - ETSAATOURS*${tourInfo}\n\n*Name:* ${formData.name}\n*Email:* ${formData.email}\n*Message:* ${formData.message}`
+      : `*Nueva Consulta - ETSAATOURS*${tourInfo}\n\n*Nombre:* ${formData.name}\n*Email:* ${formData.email}\n*Mensaje:* ${formData.message}`;
     
     const whatsappUrl = `https://wa.me/${WHATSAPP.replace(/\D/g, '')}?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
@@ -37,7 +55,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -47,22 +65,22 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
           />
           
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 20 }}
-            className="relative bg-white rounded-[32px] shadow-2xl w-full max-w-lg overflow-hidden"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            className="relative bg-white rounded-t-3xl sm:rounded-[32px] shadow-2xl w-full sm:max-w-lg overflow-hidden max-h-[90vh] sm:max-h-none"
           >
-            <div className="p-8">
-              <div className="flex justify-between items-center mb-8">
-                <div>
-                  <h3 className="text-3xl font-black text-gray-900">{t('contact.title')}</h3>
-                  <p className="text-gray-500 font-medium">{t('contact.subtitle')}</p>
+            <div className="p-6 sm:p-8 overflow-y-auto max-h-[90vh] sm:max-h-none">
+              <div className="flex justify-between items-start mb-6 sm:mb-8">
+                <div className="flex-1 pr-4">
+                  <h3 className="text-2xl sm:text-3xl font-black text-gray-900">{t('contact.title')}</h3>
+                  <p className="text-gray-500 font-medium text-sm sm:text-base">{t('contact.subtitle')}</p>
                 </div>
                 <button 
                   onClick={onClose}
-                  className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                  className="p-2 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0"
                 >
-                  <X className="w-6 h-6 text-gray-400" />
+                  <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
                 </button>
               </div>
 

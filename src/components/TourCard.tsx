@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Tour } from '../types';
 import { ArrowRight, Clock } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -8,10 +9,10 @@ import { urlFor } from '../lib/sanity';
 
 interface TourCardProps {
   tour: Tour;
-  onViewDetails: (tour: Tour) => void;
 }
 
-const TourCard: React.FC<TourCardProps> = ({ tour, onViewDetails }) => {
+const TourCard: React.FC<TourCardProps> = ({ tour }) => {
+  const navigate = useNavigate();
   const { i18n } = useTranslation();
   const translatedTour = translateTour(tour, i18n.language);
   
@@ -21,6 +22,17 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onViewDetails }) => {
     ? urlFor(image).width(800).height(1000).fit('crop').auto('format').url()
     : (typeof image === 'string' ? image : '/assets/home.jpeg');
 
+  const handleClick = () => {
+    // Navigate to tour detail page using slug
+    if (tour.slug?.current) {
+      navigate(`/tours/${tour.slug.current}`);
+    } else {
+      // Fallback: use title as slug if no slug field
+      const slug = tour.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      navigate(`/tours/${slug}`);
+    }
+  };
+
   return (
     <motion.div
       layout
@@ -29,7 +41,7 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onViewDetails }) => {
       viewport={{ once: true }}
       transition={{ duration: 0.5 }}
       className="group cursor-pointer h-full flex flex-col"
-      onClick={() => onViewDetails(tour)}
+      onClick={handleClick}
     >
       <div className="relative aspect-[4/5] w-full overflow-hidden bg-gray-100 flex-shrink-0">
         <img
@@ -63,6 +75,8 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onViewDetails }) => {
           {translatedTour.description}
         </p>
 
+        {/* Precios ocultos - disponibles en Sanity CMS pero no visibles en la página */}
+        {/* 
         <div className="flex items-center gap-4 pt-3 border-t border-gray-100 mt-auto">
           <div className="flex flex-col">
             <span className="text-[7px] uppercase font-bold text-gray-400 tracking-[0.2em]">{i18n.language === 'en' ? 'National' : 'Nacional'}</span>
@@ -72,6 +86,15 @@ const TourCard: React.FC<TourCardProps> = ({ tour, onViewDetails }) => {
             <span className="text-[7px] uppercase font-bold text-[#F27D26] tracking-[0.2em]">{i18n.language === 'en' ? 'International' : 'Internacional'}</span>
             <span className="text-sm font-black text-gray-900">{tour.priceInternacional}</span>
           </div>
+          <div className="ml-auto">
+            <div className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-[#F27D26] group-hover:bg-[#F27D26] transition-all">
+              <ArrowRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-white" />
+            </div>
+          </div>
+        </div>
+        */}
+        
+        <div className="pt-3 border-t border-gray-100 mt-auto">
           <div className="ml-auto">
             <div className="w-9 h-9 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-[#F27D26] group-hover:bg-[#F27D26] transition-all">
               <ArrowRight className="w-3.5 h-3.5 text-gray-400 group-hover:text-white" />

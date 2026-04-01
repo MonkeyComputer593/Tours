@@ -2,6 +2,7 @@ export interface Tour {
   id: string;
   title: string;
   titleEn?: string;
+  slug?: { current: string };
   seoTitle?: string;
   metaDescription?: string;
   description: string;

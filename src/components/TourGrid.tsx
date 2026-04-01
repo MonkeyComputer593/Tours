@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAllTours } from '../lib/sanity';
 import TourCard from './TourCard';
-import { AnimatePresence, motion } from 'motion/react';
-import TourDetailModal from './TourDetailModal';
+import { motion } from 'motion/react';
 import { Tour } from '../types';
 import { useTranslation } from 'react-i18next';
 
@@ -12,7 +11,6 @@ export default function TourGrid() {
   const { t } = useTranslation();
   const [tours, setTours] = useState<Tour[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedTour, setSelectedTour] = useState<Tour | null>(null);
   const [activeFilter, setActiveFilter] = useState('Todos');
 
   useEffect(() => {
@@ -85,15 +83,12 @@ export default function TourGrid() {
           </div>
         ) : (
           <motion.div layout className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
-            <AnimatePresence mode="popLayout">
-              {filteredTours.map((tour) => (
-                <TourCard
-                  key={tour.id}
-                  tour={tour}
-                  onViewDetails={(tour) => setSelectedTour(tour)}
-                />
-              ))}
-            </AnimatePresence>
+            {filteredTours.map((tour) => (
+              <TourCard
+                key={tour.id}
+                tour={tour}
+              />
+            ))}
           </motion.div>
         )}
         {!loading && filteredTours.length === 0 && (
@@ -102,11 +97,6 @@ export default function TourGrid() {
           </div>
         )}
       </div>
-
-      <TourDetailModal
-        tour={selectedTour}
-        onClose={() => setSelectedTour(null)}
-      />
     </section>
   );
 }

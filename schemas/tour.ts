@@ -4,6 +4,16 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'slug',
+      title: 'Slug (URL)',
+      type: 'slug',
+      options: {
+        source: 'title',
+        maxLength: 96,
+      },
+      description: 'URL del tour (ej: cusco-magico). Se genera automáticamente del título.',
+    },
+    {
       name: 'title',
       title: 'Título (Español)',
       type: 'string',

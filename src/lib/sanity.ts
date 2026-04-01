@@ -21,6 +21,7 @@ export async function getAllTours() {
       _id,
       title,
       titleEn,
+      slug,
       description,
       descriptionEn,
       region,
@@ -33,6 +34,76 @@ export async function getAllTours() {
       order
     }`,
   );
+}
+
+// Helper function to generate slug from title (matches Sanity's default behavior)
+function generateSlug(title: string): string {
+  return title
+    .toLowerCase()
+    .replace(/[^a-z0-9áéíóúñü\s-]/g, '') // Keep letters, numbers, spaces, hyphens
+    .replace(/\s+/g, '-')                 // Replace spaces with hyphens
+    .replace(/-+/g, '-')                  // Replace multiple hyphens with single
+    .replace(/^-|-$/g, '');                // Remove leading/trailing hyphens
+}
+
+export async function getTourBySlug(slug: string) {
+  // Get all tours
+  const allTours = await sanityClient.fetch(
+    `*[_type == "tour"]{
+      _id,
+      title,
+      titleEn,
+      slug,
+      description,
+      descriptionEn,
+      region,
+      duration,
+      priceNacional,
+      priceInternacional,
+      image,
+      itinerary,
+      itineraryEn,
+      includes,
+      excludes,
+      order
+    }`
+  );
+
+  const slugNormalized = slug.toLowerCase().trim();
+
+  // Find tour - try multiple matching strategies
+  for (const tour of allTours) {
+    // Strategy 1: Exact slug.current match (if tour has slug configured in Sanity)
+    if (tour.slug?.current?.toLowerCase() === slugNormalized) {
+      return tour;
+    }
+
+    // Strategy 2: Match by generated slug from title
+    const titleSlug = generateSlug(tour.title || '');
+    if (titleSlug === slugNormalized) {
+      return tour;
+    }
+
+    // Strategy 3: Partial match - URL contains title slug or vice versa
+    if (slugNormalized.includes(titleSlug) || titleSlug.includes(slugNormalized)) {
+      return tour;
+    }
+
+    // Strategy 4: Very loose match - remove common words and compare
+    const titleWords = (tour.title || '').toLowerCase()
+      .replace(/luxury|experience|tour|at|of|the|a|an|el|la|los|las/gi, '')
+      .replace(/[^a-z0-9]/g, '');
+    const slugWords = slugNormalized
+      .replace(/luxury|experience|tour|at|of|the|a|an|el|la|los|las/gi, '')
+      .replace(/[^a-z0-9]/g, '');
+    
+    if (titleWords.includes(slugWords) || slugWords.includes(titleWords)) {
+      return tour;
+    }
+  }
+
+  // If no match found, return null
+  return null;
 }
 
 export async function getAllFaqs() {

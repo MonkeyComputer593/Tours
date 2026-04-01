@@ -89,7 +89,7 @@ export default function TourDetailModal({ tour, onClose }: TourDetailModalProps)
                     <p className="text-xs md:text-sm text-gray-500 font-medium leading-relaxed uppercase tracking-wide">{translatedTour.description}</p>
                   </div>
 
-                  {/* Pricing */}
+                  {/* Pricing - oculto pero disponible en Sanity CMS 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-12 pt-8 md:pt-12 border-t border-gray-100">
                     <div>
                       <p className="text-[9px] uppercase font-bold tracking-[0.3em] text-gray-400 mb-2 md:mb-4">{t('common.nacional')}</p>
@@ -102,6 +102,7 @@ export default function TourDetailModal({ tour, onClose }: TourDetailModalProps)
                       <p className="text-[9px] text-gray-400 mt-1 md:mt-2 uppercase tracking-widest font-bold">{t('common.perPerson')}</p>
                     </div>
                   </div>
+                  */}
 
                   {/* Itinerary */}
                   {translatedTour.itinerary && translatedTour.itinerary.length > 0 && (
