@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { MapPin, Phone, Mail, Send, CheckCircle, MessageCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-const WHATSAPP = "+593961906731";
+const WHATSAPP = "+593968464331";
 const EMAIL = "etsaatoursec@gmail.com";
 const ADDRESS = "Macas, Ecuador";
 const MAPS_LINK = "https://maps.google.com/?q=Macas+Ecuador";
@@ -58,7 +58,7 @@ export default function Contact() {
         ? `New Inquiry - ETSAATOURS\n\nName: ${formData.name}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nTour: ${formData.tour}\nMessage: ${formData.message}`
         : `Nueva Consulta - ETSAATOURS\n\nNombre: ${formData.name}\nEmail: ${formData.email}\nTelefono: ${formData.phone}\nTour de interes: ${formData.tour}\nMensaje: ${formData.message}`;
       
-      const whatsappUrl = `https://wa.me/593961906731?text=${encodeURIComponent(message)}`;
+      const whatsappUrl = `https://wa.me/593968464331?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');
       setIsSent(true);
       

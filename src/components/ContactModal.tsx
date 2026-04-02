@@ -9,7 +9,7 @@ interface ContactModalProps {
   preselectedTour?: string;
 }
 
-const WHATSAPP = "+593961906731";
+const WHATSAPP = "+593968464331";
 
 export default function ContactModal({ isOpen, onClose, preselectedTour }: ContactModalProps) {
   const { t, i18n } = useTranslation();

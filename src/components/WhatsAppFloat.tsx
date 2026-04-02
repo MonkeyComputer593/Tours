@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { X, Phone, CheckCircle } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
-const WHATSAPP = "+593961906731";
+const WHATSAPP = "+593968464331";
 
 export default function WhatsAppFloat() {
   const { t, i18n } = useTranslation();
