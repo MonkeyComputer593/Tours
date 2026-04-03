@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 
 export default function AboutUs() {
   const { t } = useTranslation();
-  
+
   return (
     <div className="bg-white scroll-mt-20" id="about">
       {/* Hero Section - Logo como banner */}
       <section className="relative w-full bg-black pt-8 lg:pt-12">
         <img
-          src="/assets/logo-etsaa.png"
+          src="/assets/logo.png"
           alt="ETSAATOURS"
           className="w-full h-auto max-h-[70vh] object-contain"
         />
@@ -27,13 +27,13 @@ export default function AboutUs() {
             className="space-y-6 lg:space-y-10"
           >
             <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F27D26]">
-              01. {t('about.vision')}
+              01. {t("about.vision")}
             </span>
             <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {t('about.visionTitle')}
+              {t("about.visionTitle")}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {t('about.visionText')}
+              {t("about.visionText")}
             </p>
           </motion.div>
 
@@ -45,13 +45,13 @@ export default function AboutUs() {
             className="space-y-6 lg:space-y-10"
           >
             <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F27D26]">
-              02. {t('about.mission')}
+              02. {t("about.mission")}
             </span>
             <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {t('about.missionTitle')}
+              {t("about.missionTitle")}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {t('about.missionText')}
+              {t("about.missionText")}
             </p>
           </motion.div>
         </div>
@@ -65,7 +65,7 @@ export default function AboutUs() {
             className="inline-flex items-center gap-3 bg-[#F27D26] text-white px-8 lg:px-10 py-3.5 lg:py-4 text-[10px] font-black uppercase tracking-[0.2em] hover:bg-orange-600 transition-colors"
           >
             <Map className="w-5 h-5" />
-            {t('common.exploreTours')}
+            {t("common.exploreTours")}
           </a>
         </div>
       </section>
@@ -77,7 +77,7 @@ export default function AboutUs() {
             <div className="relative aspect-[3/4] lg:aspect-[4/5] overflow-hidden bg-gray-200 order-2 lg:order-1">
               <img
                 src="/assets/cultural-achuar.jpeg"
-                alt={t('about.roots')}
+                alt={t("about.roots")}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/10" />
@@ -88,11 +88,11 @@ export default function AboutUs() {
                   More than an agency
                 </span>
                 <h2 className="text-3xl lg:text-8xl font-black text-gray-900 leading-none tracking-tighter uppercase">
-                  {t('about.roots')}
+                  {t("about.roots")}
                 </h2>
               </div>
               <p className="text-sm text-gray-600 leading-relaxed font-medium uppercase tracking-widest">
-                {t('about.rootsText')}
+                {t("about.rootsText")}
               </p>
               <div className="grid grid-cols-2 gap-6 lg:gap-12 pt-6 lg:pt-16 border-t border-gray-200">
                 <div>
@@ -100,7 +100,7 @@ export default function AboutUs() {
                     15+
                   </span>
                   <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 mt-3 lg:mt-6">
-                    {t('about.yearsExperience')}
+                    {t("about.yearsExperience")}
                   </p>
                 </div>
                 <div>
@@ -108,7 +108,7 @@ export default function AboutUs() {
                     40+
                   </span>
                   <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 mt-3 lg:mt-6">
-                    {t('about.alliedCommunities')}
+                    {t("about.alliedCommunities")}
                   </p>
                 </div>
               </div>

@@ -27,8 +27,13 @@ const TourCard: React.FC<TourCardProps> = ({ tour }) => {
     if (tour.slug?.current) {
       navigate(`/tours/${tour.slug.current}`);
     } else {
-      // Fallback: use title as slug if no slug field
-      const slug = tour.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      // Generate slug from title (must match sanity.ts generateSlug function)
+      const slug = tour.title
+        .toLowerCase()
+        .replace(/[^a-z0-9áéíóúñü\s-]/g, '')  // Keep letters, numbers, spaces, hyphens (same as sanity.ts)
+        .replace(/\s+/g, '-')                   // Replace spaces with hyphens
+        .replace(/-+/g, '-')                   // Replace multiple hyphens with single
+        .replace(/^-|-$/g, '');                 // Remove leading/trailing hyphens
       navigate(`/tours/${slug}`);
     }
   };

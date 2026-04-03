@@ -71,7 +71,7 @@ export async function getTourBySlug(slug: string) {
 
   const slugNormalized = slug.toLowerCase().trim();
 
-  // Find tour - try multiple matching strategies
+  // Find tour - ONLY exact matching to avoid wrong tour selection
   for (const tour of allTours) {
     // Strategy 1: Exact slug.current match (if tour has slug configured in Sanity)
     if (tour.slug?.current?.toLowerCase() === slugNormalized) {
@@ -81,23 +81,6 @@ export async function getTourBySlug(slug: string) {
     // Strategy 2: Match by generated slug from title
     const titleSlug = generateSlug(tour.title || '');
     if (titleSlug === slugNormalized) {
-      return tour;
-    }
-
-    // Strategy 3: Partial match - URL contains title slug or vice versa
-    if (slugNormalized.includes(titleSlug) || titleSlug.includes(slugNormalized)) {
-      return tour;
-    }
-
-    // Strategy 4: Very loose match - remove common words and compare
-    const titleWords = (tour.title || '').toLowerCase()
-      .replace(/luxury|experience|tour|at|of|the|a|an|el|la|los|las/gi, '')
-      .replace(/[^a-z0-9]/g, '');
-    const slugWords = slugNormalized
-      .replace(/luxury|experience|tour|at|of|the|a|an|el|la|los|las/gi, '')
-      .replace(/[^a-z0-9]/g, '');
-    
-    if (titleWords.includes(slugWords) || slugWords.includes(titleWords)) {
       return tour;
     }
   }
