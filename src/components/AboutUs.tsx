@@ -95,10 +95,10 @@ export default function AboutUs() {
               01. {t("about.vision")}
             </span>
             <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {getTexto(nosotros?.visionTitulo, nosotros?.visionTituloEn) || t("about.visionTitle")}
+              {nosotros?.visionTitulo || "editar en sanity"}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {getTexto(nosotros?.vision, nosotros?.visionEn) || t("about.visionText")}
+              {nosotros?.vision || "editar en sanity"}
             </p>
           </motion.div>
 
@@ -113,10 +113,10 @@ export default function AboutUs() {
               02. {t("about.mission")}
             </span>
             <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {getTexto(nosotros?.misionTitulo, nosotros?.misionTituloEn) || t("about.missionTitle")}
+              {nosotros?.misionTitulo || "editar en sanity"}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {getTexto(nosotros?.mision, nosotros?.misionEn) || t("about.missionText")}
+              {nosotros?.mision || "editar en sanity"}
             </p>
           </motion.div>
         </div>
@@ -150,14 +150,14 @@ export default function AboutUs() {
             <div className="space-y-6 lg:space-y-16 order-1 lg:order-2">
               <div className="space-y-4 lg:space-y-8">
                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F27D26]">
-                  {getTexto(nosotros?.raicesSubtitulo, nosotros?.raicesSubtituloEn) || "More than an agency"}
+                  {nosotros?.raicesSubtitulo || "More than an agency"}
                 </span>
                 <h2 className="text-3xl lg:text-8xl font-black text-gray-900 leading-none tracking-tighter uppercase">
-                  {getTexto(nosotros?.raicesTitulo, nosotros?.raicesTituloEn) || t("about.roots")}
+                  {nosotros?.raicesTitulo || "editar en sanity"}
                 </h2>
               </div>
               <p className="text-sm text-gray-600 leading-relaxed font-medium uppercase tracking-widest">
-                {getTexto(nosotros?.raicesTexto, nosotros?.raicesTextoEn) || t("about.rootsText")}
+                {nosotros?.raicesTexto || "editar en sanity"}
               </p>
               <div className="grid grid-cols-2 gap-6 lg:gap-12 pt-6 lg:pt-16 border-t border-gray-200">
                 <div>
