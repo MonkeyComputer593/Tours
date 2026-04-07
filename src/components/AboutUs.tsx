@@ -6,14 +6,17 @@ import { getNosotros, urlFor } from "../lib/sanity";
 
 interface NosotrosData {
   _id: string;
+  logo: any;
   visionTitulo: string;
   visionTituloEn: string;
   vision: string;
   visionEn: string;
+  visionImagen: any;
   misionTitulo: string;
   misionTituloEn: string;
   mision: string;
   misionEn: string;
+  misionImagen: any;
   raicesTitulo: string;
   raicesTituloEn: string;
   raicesSubtitulo: string;
@@ -76,7 +79,7 @@ export default function AboutUs() {
       {/* Hero Section - Logo como banner */}
       <section className="relative w-full bg-black pt-8 lg:pt-12">
         <img
-          src="/assets/logo.png"
+          src={getImagenUrl(nosotros?.logo) || "/assets/logo.png"}
           alt="ETSAATOURS"
           className="w-full h-auto max-h-[70vh] object-contain"
         />

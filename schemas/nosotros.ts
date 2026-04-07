@@ -5,16 +5,20 @@ export default {
   __experimental_actions: ['create', 'update', 'delete', 'publish'],
   fields: [
     {
+      name: 'logo',
+      title: 'Logo Principal',
+      type: 'image',
+      description: 'Logo que aparece arriba del About Us',
+    },
+    {
       name: 'visionTitulo',
       title: 'Título Visión (Español)',
       type: 'string',
-      initialValue: 'El Futuro de los Tours',
     },
     {
       name: 'visionTituloEn',
       title: 'Vision Title (English)',
       type: 'string',
-      initialValue: 'The Future of Tours',
     },
     {
       name: 'vision',
@@ -29,16 +33,20 @@ export default {
       rows: 3,
     },
     {
+      name: 'visionImagen',
+      title: 'Imagen Visión',
+      type: 'image',
+      description: 'Imagen de fondo para la sección de Visión (antes banner-andes.png)',
+    },
+    {
       name: 'misionTitulo',
       title: 'Título Misión (Español)',
       type: 'string',
-      initialValue: 'Nuestro Compromiso',
     },
     {
       name: 'misionTituloEn',
       title: 'Mission Title (English)',
       type: 'string',
-      initialValue: 'Our Commitment',
     },
     {
       name: 'mision',
@@ -51,6 +59,12 @@ export default {
       title: 'Mission (English)',
       type: 'text',
       rows: 3,
+    },
+    {
+      name: 'misionImagen',
+      title: 'Imagen Misión',
+      type: 'image',
+      description: 'Imagen de fondo para la sección de Misión (antes galapagos-signature.jpeg)',
     },
     {
       name: 'raicesTitulo',
@@ -66,13 +80,11 @@ export default {
       name: 'raicesSubtitulo',
       title: 'Subtítulo Raíces (Español)',
       type: 'string',
-      initialValue: 'More than an agency',
     },
     {
       name: 'raicesSubtituloEn',
       title: 'Raíces Subtitle (English)',
       type: 'string',
-      initialValue: 'More than an agency',
     },
     {
       name: 'raicesTexto',

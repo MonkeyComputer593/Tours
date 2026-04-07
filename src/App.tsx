@@ -9,6 +9,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TourGrid from './components/TourGrid';
 import AboutUs from './components/AboutUs';
+// import Services from './components/Services'; // COMMENTED - ya no se usa, ahora todo viene de Sanity
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -74,6 +75,7 @@ function MainPage() {
         <Hero />
         <TourGrid />
         <AboutUs />
+        {/* <Services /> - REMOVIDO: ahora el contenido viene de Sanity */}
         <FAQ />
         <Contact />
       </main>
