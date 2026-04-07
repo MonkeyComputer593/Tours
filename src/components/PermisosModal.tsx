@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { X, FileText, Download, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { getAllPermisos, urlFor } from "../lib/sanity";
+import { getAllPermisos, urlForFile } from "../lib/sanity";
 
 interface Permiso {
   _id: string;
@@ -56,8 +56,14 @@ export default function PermisosModal({ isOpen, onClose }: PermisosModalProps) {
   };
 
   const getDocumentoUrl = (documento: any) => {
-    if (!documento?.asset) return null;
-    return documento.asset.url || urlFor(documento).url();
+    if (!documento) return null;
+    // Handle file with asset reference: { asset: { _ref: "file-...", _type: "reference" } }
+    if (documento?.asset?._ref) {
+      return urlForFile(documento);
+    }
+    // Handle direct asset with url
+    if (documento?.asset?.url) return documento.asset.url;
+    return null;
   };
 
   return (

@@ -6,12 +6,18 @@ import { getNosotros, urlFor } from "../lib/sanity";
 
 interface NosotrosData {
   _id: string;
+  visionTitulo: string;
+  visionTituloEn: string;
   vision: string;
   visionEn: string;
+  misionTitulo: string;
+  misionTituloEn: string;
   mision: string;
-  missionEn: string;
+  misionEn: string;
   raicesTitulo: string;
   raicesTituloEn: string;
+  raicesSubtitulo: string;
+  raicesSubtituloEn: string;
   raicesTexto: string;
   raicesTextoEn: string;
   raicesImagen: any;
@@ -43,8 +49,16 @@ export default function AboutUs() {
   };
 
   const getImagenUrl = (imagen: any) => {
-    if (!imagen?.asset) return "/assets/cultural-achuar.jpeg";
-    return imagen.asset.url || urlFor(imagen).url();
+    // If no image asset, return default
+    if (!imagen?.asset?._ref) return "/assets/cultural-achuar.jpeg";
+    // Use urlFor to build the image URL from Sanity
+    try {
+      const url = urlFor(imagen).url();
+      if (url) return url;
+    } catch (e) {
+      console.error("Error building image URL:", e);
+    }
+    return "/assets/cultural-achuar.jpeg";
   };
 
   if (loading) {
@@ -81,7 +95,7 @@ export default function AboutUs() {
               01. {t("about.vision")}
             </span>
             <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {t("about.visionTitle")}
+              {getTexto(nosotros?.visionTitulo, nosotros?.visionTituloEn) || t("about.visionTitle")}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
               {getTexto(nosotros?.vision, nosotros?.visionEn) || t("about.visionText")}
@@ -99,7 +113,7 @@ export default function AboutUs() {
               02. {t("about.mission")}
             </span>
             <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {t("about.missionTitle")}
+              {getTexto(nosotros?.misionTitulo, nosotros?.misionTituloEn) || t("about.missionTitle")}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
               {getTexto(nosotros?.mision, nosotros?.misionEn) || t("about.missionText")}
@@ -136,7 +150,7 @@ export default function AboutUs() {
             <div className="space-y-6 lg:space-y-16 order-1 lg:order-2">
               <div className="space-y-4 lg:space-y-8">
                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F27D26]">
-                  More than an agency
+                  {getTexto(nosotros?.raicesSubtitulo, nosotros?.raicesSubtituloEn) || "More than an agency"}
                 </span>
                 <h2 className="text-3xl lg:text-8xl font-black text-gray-900 leading-none tracking-tighter uppercase">
                   {getTexto(nosotros?.raicesTitulo, nosotros?.raicesTituloEn) || t("about.roots")}

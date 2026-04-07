@@ -15,6 +15,18 @@ export const sanityClient = createClient({
 const builder = imageUrlBuilder(sanityClient);
 export const urlFor = (source: any) => builder.image(source);
 
+// Helper to get file URL from Sanity file reference
+export function urlForFile(source: any) {
+  if (!source?.asset?._ref) return null;
+  const ref = source.asset._ref;
+  // Format: file-abc123-pdf
+  const match = ref.match(/^file-(.+)-(\w+)$/);
+  if (!match) return null;
+  const hash = match[1];
+  const format = match[2];
+  return `https://cdn.sanity.io/files/${projectId}/production/${hash}.${format}`;
+}
+
 export async function getAllTours() {
   return sanityClient.fetch(
     `*[_type == "tour"] | order(order asc){

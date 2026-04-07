@@ -2,6 +2,7 @@ export default {
   name: 'permiso',
   title: 'Permisos Legales',
   type: 'document',
+  __experimental_actions: ['create', 'update', 'delete', 'publish'],
   fields: [
     {
       name: 'titulo',
