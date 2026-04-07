@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, MessageCircle, Globe } from 'lucide-react';
+import { Menu, X, MessageCircle, Globe, FileText } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import ContactModal from './ContactModal';
+import PermisosModal from './PermisosModal';
 import { useTranslation } from 'react-i18next';
 
 export default function Navbar() {
@@ -13,6 +14,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [isPermisosModalOpen, setIsPermisosModalOpen] = useState(false);
   const lastScrollY = useRef(0);
   const isEnglish = i18n.language === 'en';
 
@@ -120,6 +122,12 @@ export default function Navbar() {
                 {t('nav.faq')}
               </button>
               <button
+                onClick={() => setIsPermisosModalOpen(true)}
+                className={`text-sm font-medium hover:text-[#F27D26] transition ${textColor}`}
+              >
+                {isEnglish ? 'License' : 'Licencia'}
+              </button>
+              <button
                 onClick={() => handleNavClick('contact')}
                 className={`text-sm font-medium hover:text-[#F27D26] transition ${textColor}`}
               >
@@ -189,6 +197,15 @@ export default function Navbar() {
                   {t('nav.faq')}
                 </button>
                 <button
+                  onClick={() => {
+                    setIsOpen(false);
+                    setIsPermisosModalOpen(true);
+                  }}
+                  className="block w-full text-left text-base font-medium text-gray-900 hover:text-[#F27D26] py-2.5"
+                >
+                  {isEnglish ? 'License' : 'Licencia'}
+                </button>
+                <button
                   onClick={() => handleNavClick('contact')}
                   className="block w-full text-left text-base font-medium text-gray-900 hover:text-[#F27D26] py-2.5"
                 >
@@ -216,6 +233,11 @@ export default function Navbar() {
       <ContactModal 
         isOpen={isContactModalOpen} 
         onClose={() => setIsContactModalOpen(false)} 
+      />
+      
+      <PermisosModal 
+        isOpen={isPermisosModalOpen} 
+        onClose={() => setIsPermisosModalOpen(false)} 
       />
     </>
   );

@@ -1,10 +1,61 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Map } from "lucide-react";
+import { Map, Loader2 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { getNosotros, urlFor } from "../lib/sanity";
+
+interface NosotrosData {
+  _id: string;
+  vision: string;
+  visionEn: string;
+  mision: string;
+  missionEn: string;
+  raicesTitulo: string;
+  raicesTituloEn: string;
+  raicesTexto: string;
+  raicesTextoEn: string;
+  raicesImagen: any;
+  anosExperiencia: number;
+  comunidades: number;
+}
 
 export default function AboutUs() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEnglish = i18n.language === "en";
+  const [nosotros, setNosotros] = useState<NosotrosData | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getNosotros()
+      .then((data) => {
+        setNosotros(data);
+      })
+      .catch((err) => {
+        console.error("Error fetching nosotros:", err);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  }, []);
+
+  const getTexto = (es: string | undefined, en: string | undefined) => {
+    return isEnglish && en ? en : es;
+  };
+
+  const getImagenUrl = (imagen: any) => {
+    if (!imagen?.asset) return "/assets/cultural-achuar.jpeg";
+    return imagen.asset.url || urlFor(imagen).url();
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-white scroll-mt-20" id="about">
+        <div className="flex items-center justify-center py-40">
+          <Loader2 className="w-8 h-8 text-[#F27D26] animate-spin" />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white scroll-mt-20" id="about">
@@ -33,7 +84,7 @@ export default function AboutUs() {
               {t("about.visionTitle")}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {t("about.visionText")}
+              {getTexto(nosotros?.vision, nosotros?.visionEn) || t("about.visionText")}
             </p>
           </motion.div>
 
@@ -51,7 +102,7 @@ export default function AboutUs() {
               {t("about.missionTitle")}
             </h3>
             <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {t("about.missionText")}
+              {getTexto(nosotros?.mision, nosotros?.misionEn) || t("about.missionText")}
             </p>
           </motion.div>
         </div>
@@ -76,8 +127,8 @@ export default function AboutUs() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-32 items-center">
             <div className="relative aspect-[3/4] lg:aspect-[4/5] overflow-hidden bg-gray-200 order-2 lg:order-1">
               <img
-                src="/assets/cultural-achuar.jpeg"
-                alt={t("about.roots")}
+                src={getImagenUrl(nosotros?.raicesImagen)}
+                alt={getTexto(nosotros?.raicesTitulo, nosotros?.raicesTituloEn) || t("about.roots")}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/10" />
@@ -88,16 +139,16 @@ export default function AboutUs() {
                   More than an agency
                 </span>
                 <h2 className="text-3xl lg:text-8xl font-black text-gray-900 leading-none tracking-tighter uppercase">
-                  {t("about.roots")}
+                  {getTexto(nosotros?.raicesTitulo, nosotros?.raicesTituloEn) || t("about.roots")}
                 </h2>
               </div>
               <p className="text-sm text-gray-600 leading-relaxed font-medium uppercase tracking-widest">
-                {t("about.rootsText")}
+                {getTexto(nosotros?.raicesTexto, nosotros?.raicesTextoEn) || t("about.rootsText")}
               </p>
               <div className="grid grid-cols-2 gap-6 lg:gap-12 pt-6 lg:pt-16 border-t border-gray-200">
                 <div>
                   <span className="text-4xl lg:text-7xl font-black text-gray-900 tracking-tighter">
-                    15+
+                    {nosotros?.anosExperiencia || 15}+
                   </span>
                   <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 mt-3 lg:mt-6">
                     {t("about.yearsExperience")}
@@ -105,7 +156,7 @@ export default function AboutUs() {
                 </div>
                 <div>
                   <span className="text-4xl lg:text-7xl font-black text-gray-900 tracking-tighter">
-                    40+
+                    {nosotros?.comunidades || 40}+
                   </span>
                   <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 mt-3 lg:mt-6">
                     {t("about.alliedCommunities")}

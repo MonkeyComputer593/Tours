@@ -92,3 +92,12 @@ export async function getTourBySlug(slug: string) {
 export async function getAllFaqs() {
   return sanityClient.fetch(`*[_type == "faq"] | order(order asc)`);
 }
+
+export async function getNosotros() {
+  const result = await sanityClient.fetch(`*[_type == "nosotros"][0]`);
+  return result;
+}
+
+export async function getAllPermisos() {
+  return sanityClient.fetch(`*[_type == "permiso"] | order(orden asc)`);
+}
