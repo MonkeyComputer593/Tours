@@ -50,11 +50,7 @@ export default function Services() {
               <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter mb-2">
                 El Futuro
               </h3>
-              <p className="text-xs lg:text-sm text-gray-300 line-clamp-2 lg:line-clamp-3">
-                Ser el referente líder en tours de selva en Sudamérica,
-                reconocidos por nuestra transparencia, ética y compromiso con la
-                conservación.
-              </p>
+              <p className="text-xs lg:text-sm text-gray-300 line-clamp-2 lg:line-clamp-3"></p>
             </div>
           </motion.div>
 
@@ -74,17 +70,11 @@ export default function Services() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
             <div className="absolute inset-0 p-6 lg:p-10 flex flex-col justify-end">
-              <span className="text-[#F27D26] text-[10px] font-bold uppercase tracking-[0.3em] mb-2">
-                02. Misión
-              </span>
+              <span className="text-[#F27D26] text-[10px] font-bold uppercase tracking-[0.3em] mb-2"></span>
               <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter mb-2">
                 Nuestro Compromiso
               </h3>
-              <p className="text-xs lg:text-sm text-gray-300 line-clamp-2 lg:line-clamp-3">
-                Promover un turismo responsable que preserve el equilibrio
-                ecológico y fortalezca la identidad cultural de las comunidades
-                locales.
-              </p>
+              <p className="text-xs lg:text-sm text-gray-300 line-clamp-2 lg:line-clamp-3"></p>
             </div>
           </motion.div>
         </div>

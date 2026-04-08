@@ -51,9 +51,9 @@ export default function AboutUs() {
     return isEnglish && en ? en : es;
   };
 
-  const getImagenUrl = (imagen: any) => {
-    // If no image asset, return default
-    if (!imagen?.asset?._ref) return "/assets/cultural-achuar.jpeg";
+  const getImagenUrl = (imagen: any, fallback: string = "/assets/cultural-achuar.jpeg") => {
+    // If no image asset, return fallback or null
+    if (!imagen?.asset?._ref) return fallback;
     // Use urlFor to build the image URL from Sanity
     try {
       const url = urlFor(imagen).url();
@@ -61,7 +61,18 @@ export default function AboutUs() {
     } catch (e) {
       console.error("Error building image URL:", e);
     }
-    return "/assets/cultural-achuar.jpeg";
+    return fallback;
+  };
+
+  const getLogoUrl = (logo: any) => {
+    if (!logo?.asset?._ref) return "/assets/logo.png";
+    try {
+      const url = urlFor(logo).url();
+      if (url) return url;
+    } catch (e) {
+      console.error("Error building logo URL:", e);
+    }
+    return "/assets/logo.png";
   };
 
   if (loading) {
@@ -78,49 +89,75 @@ export default function AboutUs() {
     <div className="bg-white scroll-mt-20" id="about">
       {/* Hero Section - Logo como banner */}
       <section className="relative w-full bg-black pt-8 lg:pt-12">
-        <img
-          src={getImagenUrl(nosotros?.logo) || "/assets/logo.png"}
-          alt="ETSAATOURS"
-          className="w-full h-auto max-h-[70vh] object-contain"
-        />
+        {nosotros?.logo?.asset?._ref ? (
+          <img
+            src={getLogoUrl(nosotros.logo)}
+            alt="ETSAATOURS"
+            className="w-full h-auto max-h-[70vh] object-contain"
+          />
+        ) : (
+          <div className="w-full h-32 lg:h-48 flex items-center justify-center">
+            <p className="text-gray-500 text-sm">Subir logo en Sanity</p>
+          </div>
+        )}
       </section>
 
       {/* Vision & Mission */}
-      <section className="py-12 lg:py-40 max-w-7xl mx-auto px-4 lg:px-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-32">
+      <section className="py-12 lg:py-20 max-w-7xl mx-auto px-4 lg:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-12">
+          {/* Visión */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="space-y-6 lg:space-y-10"
+            className="group relative overflow-hidden aspect-[3/4] lg:aspect-[16/9] bg-black rounded-xl"
           >
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F27D26]">
-              01. {t("about.vision")}
-            </span>
-            <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {nosotros?.visionTitulo || "editar en sanity"}
-            </h3>
-            <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {nosotros?.vision || "editar en sanity"}
-            </p>
+            {nosotros?.visionImagen?.asset?._ref ? (
+              <img
+                src={getImagenUrl(nosotros.visionImagen)}
+                alt={getTexto(nosotros?.visionTitulo, nosotros?.visionTituloEn) || "Visión"}
+                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-40 transition-opacity duration-500"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black" />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute inset-0 p-6 lg:p-10 flex flex-col justify-end">
+              <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter mb-2">
+                {getTexto(nosotros?.visionTitulo, nosotros?.visionTituloEn) || "Visión"}
+              </h3>
+              <p className="text-xs lg:text-sm text-gray-300 line-clamp-2 lg:line-clamp-3">
+                {getTexto(nosotros?.vision, nosotros?.visionEn) || "editar en sanity"}
+              </p>
+            </div>
           </motion.div>
 
+          {/* Misión */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="space-y-6 lg:space-y-10"
+            transition={{ delay: 0.1 }}
+            className="group relative overflow-hidden aspect-[3/4] lg:aspect-[16/9] bg-black rounded-xl"
           >
-            <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F27D26]">
-              02. {t("about.mission")}
-            </span>
-            <h3 className="text-2xl lg:text-4xl font-black uppercase tracking-tighter text-gray-900 leading-none">
-              {nosotros?.misionTitulo || "editar en sanity"}
-            </h3>
-            <p className="text-sm text-gray-500 leading-relaxed font-medium uppercase tracking-widest">
-              {nosotros?.mision || "editar en sanity"}
-            </p>
+            {nosotros?.misionImagen?.asset?._ref ? (
+              <img
+                src={getImagenUrl(nosotros.misionImagen)}
+                alt={getTexto(nosotros?.misionTitulo, nosotros?.misionTituloEn) || "Misión"}
+                className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover:opacity-40 transition-opacity duration-500"
+              />
+            ) : (
+              <div className="absolute inset-0 bg-gradient-to-br from-gray-800 to-black" />
+            )}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+            <div className="absolute inset-0 p-6 lg:p-10 flex flex-col justify-end">
+              <h3 className="text-2xl lg:text-3xl font-black text-white uppercase tracking-tighter mb-2">
+                {getTexto(nosotros?.misionTitulo, nosotros?.misionTituloEn) || "Misión"}
+              </h3>
+              <p className="text-xs lg:text-sm text-gray-300 line-clamp-2 lg:line-clamp-3">
+                {getTexto(nosotros?.mision, nosotros?.misionEn) || "editar en sanity"}
+              </p>
+            </div>
           </motion.div>
         </div>
       </section>
@@ -153,33 +190,15 @@ export default function AboutUs() {
             <div className="space-y-6 lg:space-y-16 order-1 lg:order-2">
               <div className="space-y-4 lg:space-y-8">
                 <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#F27D26]">
-                  {nosotros?.raicesSubtitulo || "More than an agency"}
+                  {getTexto(nosotros?.raicesSubtitulo, nosotros?.raicesSubtituloEn) || "More than an agency"}
                 </span>
                 <h2 className="text-3xl lg:text-8xl font-black text-gray-900 leading-none tracking-tighter uppercase">
-                  {nosotros?.raicesTitulo || "editar en sanity"}
+                  {getTexto(nosotros?.raicesTitulo, nosotros?.raicesTituloEn) || "editar en sanity"}
                 </h2>
               </div>
               <p className="text-sm text-gray-600 leading-relaxed font-medium uppercase tracking-widest">
-                {nosotros?.raicesTexto || "editar en sanity"}
+                {getTexto(nosotros?.raicesTexto, nosotros?.raicesTextoEn) || "editar en sanity"}
               </p>
-              <div className="grid grid-cols-2 gap-6 lg:gap-12 pt-6 lg:pt-16 border-t border-gray-200">
-                <div>
-                  <span className="text-4xl lg:text-7xl font-black text-gray-900 tracking-tighter">
-                    {nosotros?.anosExperiencia || 15}+
-                  </span>
-                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 mt-3 lg:mt-6">
-                    {t("about.yearsExperience")}
-                  </p>
-                </div>
-                <div>
-                  <span className="text-4xl lg:text-7xl font-black text-gray-900 tracking-tighter">
-                    {nosotros?.comunidades || 40}+
-                  </span>
-                  <p className="text-[9px] font-black uppercase tracking-[0.3em] text-gray-400 mt-3 lg:mt-6">
-                    {t("about.alliedCommunities")}
-                  </p>
-                </div>
-              </div>
             </div>
           </div>
         </div>

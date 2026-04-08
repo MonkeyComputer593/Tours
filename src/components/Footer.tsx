@@ -2,7 +2,7 @@ import React from "react";
 import { Instagram, Youtube, MessageCircle, Mail, MapPin } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-const WHATSAPP = "+593968464331";
+const WHATSAPP = "+593 96 846 4331";
 const WHATSAPP_LINK = "https://wa.me/593968464331";
 const INSTAGRAM = "etsaatours_s.a.s";
 const INSTAGRAM_LINK = "https://www.instagram.com/etsaatours_s.a.s/";
